@@ -3,10 +3,10 @@ library(tiff)
 library(EBImage)
 library(feather)
 
-labels =  setdiff(  list.files('db/labels/2016/oost', pattern = '.tif'), list.files('db/labels/2016/oost', pattern = 'xml')  )
+labels =  setdiff(  list.files('db/labels/oost_2016', pattern = '.tif'), list.files('db/labels/oost_2016', pattern = 'xml')  )
 
 files =  file.path('db', 'geomorfologie_tiffs', 'oost_2016', labels)
-labels = file.path('db', 'labels', '2016', 'oost', labels)
+labels = file.path('db', 'labels', 'oost_2016', labels)
   
   
 w = 608
