@@ -5,12 +5,19 @@ library(rgeos)
 library(tiff)
 
 
+# 
+# shape_1 = readOGR( 'db/geomorfologie_shapes/2016/oost')
+# shape_2 =  readOGR( 'db/geomorfologie_shapes/2016/west')
+# shape_1@data = data.frame('class_oms' = shape_1$OMS_GEOCOD, 'class_code' = shape_1$GEOCODE2 , stringsAsFactors = FALSE )
+# shape_2@data = data.frame('class_oms' = shape_2$OMS_GEOCOD , 'class_code' = shape_2$GEOCODE2 , stringsAsFactors = FALSE )
+# shape = rbind(shape_1, shape_2)
+# shape$label =  as.numeric(shape$class_code)
 
-shape = readOGR( 'db/geomorfologie_shapes/2016/west')
-shape$class = as.numeric(shape$OMS_GEOCOD)
+saveRDS(shape, 'db/shape_total.rds')
+
+shape = readRDS('db/shape_total.rds')
 
 images =  list.files('db/geomorfologie_tiffs/Mosaic_Westerchelde_2016', pattern = 'tif', full.names = TRUE)
-
 for(i  in 27:length(images)){
   image = images[i]
   print(image)
@@ -31,12 +38,6 @@ for(i  in 27:length(images)){
 
 
 
-
-path = '/home/daniel/R/schelde/db/geomorfologie_shapes/2016'
-
-
-shape = readOGR( 'db/geomorfologie_shapes/2016/oost')
-shape$class = as.numeric(shape$OMS_GEOCOD)
 
 images = list.files('db/geomorfologie_tiffs/Mosaic_Oosterchelde_2016', pattern = 'tif', full.names = TRUE)
 
