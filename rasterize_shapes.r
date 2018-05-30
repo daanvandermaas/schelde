@@ -13,7 +13,7 @@ library(tiff)
 # shape = rbind(shape_1, shape_2)
 # shape$label =  as.numeric(shape$class_code)
 
-saveRDS(shape, 'db/shape_total.rds')
+#saveRDS(shape, 'db/shape_total.rds')
 
 shape = readRDS('db/shape_total.rds')
 
@@ -31,7 +31,7 @@ for(i  in 27:length(images)){
     
     name = strsplit(image, '/')[[1]][9]
     
-    writeRaster(r,  paste0('db/labels/2016/west/', name) , overwrite = TRUE )
+    writeRaster(r,  paste0('db/geomorfologie_labels/west_2016/', name) , overwrite = TRUE )
   }
   
 }
@@ -54,7 +54,7 @@ for(i  in 27:length(images)){
     
     name = strsplit(image, '/')[[1]][9]
     
-    writeRaster(r,  paste0('db/labels/2016/oost/', name) , overwrite = TRUE )
+    writeRaster(r,  paste0('db/geomorfologie_labels/oost_2016/', name) , overwrite = TRUE )
   }
   
 }

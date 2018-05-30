@@ -13,46 +13,53 @@ visualise_labels(path, labels, path_out )
 
 visualise_labels = function(path , labels, path_out){
 
+  #D Duin geel maar een paar
+  #O overig grijs
+  #kwelders groen S
+  #hard subtraat bruin H Paars
+  #Schorkelen groen K
+  #platen rood P
+  
 cols <- c(
   '0' = "black", #niks
   '1' = "yellow", #D1
-  '2' = "chartreuse", #D2   
-  '3' = "chartreuse1", #H1a
-  '4' = "chartreuse2", #H1b
-  '5' = "chartreuse3", #H2a  
-  '6' = "darkolivegreen2", #H2b
-  '7' = "darkolivegreen3", #H2d  
-  '36' = '',#O1
-  '8' = "darkolivegreen1", #O2
-  '9' = "gold2",  #O3
-  '37' = '',#O4
-  '10' = "gold3", # O5
-  '11' = "gold", #P1a1
-  '12' = 'gold2', #P1a2
-  '13' = 'gold4', #P1a3
-  '14' = "brown", #P1b
-  '15' = "brown2", #P2a
-  '16' = "brown1", #P2b1
-  '17' = "brown3", #P2b2    
-  '18' = "aquamarine4", # P2c 
-  '19' = "aquamarine3", # P2d1
-  '20' = "aquamarine2", #P2d2
-  '21' = "aquamarine", # P2d3  
+  '2' = "yellow1", #D2   
+  '3' = "magenta", #H1a
+  '4' = "magenta1", #H1b
+  '5' = "magenta2", #H2a  
+  '6' = "magenta3", #H2b
+  '7' = "magenta4", #H2d 
+  '27' = 'orchid',#H1ah
+  '28' = 'orchid1',#H1bh
+  '29' = 'orchid2',#H2c
+  '36' = 'snow',#O1
+  '8' = "snow1", #O2
+  '9' = "snow2",  #O3
+  '37' = 'snow3',#O4
+  '10' = "snow4", # O5
+  '11' = "red", #P1a1
+  '12' = 'red1', #P1a2
+  '13' = 'red2', #P1a3
+  '14' = "red3", #P1b
+  '15' = "red4", #P2a
+  '16' = "darkorange", #P2b1
+  '17' = "darkorange1", #P2b2    
+  '18' = "darkorange3", # P2c 
+  '19' = "darkorange4", # P2d1
+  '20' = "darkred", #P2d2
+  '21' = "chocolate", # P2d3 
+  '38' = 'chocolate1',#P3
   '22' = 'yellow1', #S1a
-'23' = 'blue', #S1c
-'24' = '',  #S2a
- '25' = '', # S2b
-'26' = '', #S3a
-'27' = '',#H1ah
-'28' = '',#H1bh
-'29' = '',#H2c
-'30' = '',#K1a1
-'31' = '',#K1a2
-'32' = '',#K2a
-'33' = '',#K2b1
-'34' = '',#K2b2
-'35' = '',#K2c
-'38' = '',#P3
+'23' = 'chartreuse', #S1c
+'24' = 'chartreuse1',  #S2a
+ '25' = 'chartreuse2', # S2b
+'26' = 'chartreuse3', #S3a
+'30' = 'chartreuse4',#K1a1
+'31' = 'aquamarine',#K1a2
+'32' = 'aquamarine1',#K2a
+'33' = 'aquamarine2',#K2b1
+'34' = 'aquamarine3',#K2b2
+'35' = 'aquamarine4'#K2c
 )
 
 
