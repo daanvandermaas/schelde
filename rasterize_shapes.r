@@ -1,10 +1,3 @@
-library(rgdal)
-library(raster)
-library(gdalUtils)
-library(rgeos)
-library(tiff)
-
-
 # 
 # shape_1 = readOGR( 'db/geomorfologie_shapes/2016/oost')
 # shape_2 =  readOGR( 'db/geomorfologie_shapes/2016/west')
@@ -15,11 +8,32 @@ library(tiff)
 
 #saveRDS(shape, 'db/shape_total.rds')
 
+
+
+library(parallel)
+cl <- makeCluster(40)
+
+clusterCall(cl, function(){
+  library(rgdal)
+  library(raster)
+  library(rgeos)
+  library(tiff)
+})
+
+images =  list.files('db/geomorfologie_tiffs/west_2016', pattern = 'tif', full.names = TRUE)
 shape = readRDS('db/shape_total.rds')
 
-images =  list.files('db/geomorfologie_tiffs/Mosaic_Westerchelde_2016', pattern = 'tif', full.names = TRUE)
-for(i  in 27:length(images)){
-  image = images[i]
+
+clusterExport(cl, varlist = c("images", "shape"))
+
+
+
+
+
+
+
+parLapply(cl, c(1:length(images)), function(i){
+ image = images[i]
   print(image)
   
   im = stack(image)
@@ -27,21 +41,29 @@ for(i  in 27:length(images)){
   sub_shape = crop(shape, im)
   
   if(!is.null(sub_shape)){
-    r = raster::rasterize(x = sub_shape, y = im, field = sub_shape$class , background = 0 )
+    r = raster::rasterize(x = sub_shape, y = im, field = sub_shape$label , background = 0 )
     
-    name = strsplit(image, '/')[[1]][9]
+    name = strsplit(image, '/')[[1]][4]
     
     writeRaster(r,  paste0('db/geomorfologie_labels/west_2016/', name) , overwrite = TRUE )
   }
   
-}
+})
 
 
+images = list.files('db/geomorfologie_tiffs/oost_2016', pattern = 'tif', full.names = TRUE)
+shape = readRDS('db/shape_total.rds')
 
 
-images = list.files('db/geomorfologie_tiffs/Mosaic_Oosterchelde_2016', pattern = 'tif', full.names = TRUE)
+clusterExport(cl, varlist = c("shape", "images"))
 
-for(i  in 27:length(images)){
+
+parLapply( cl, c(1:length(images)), function(i){
+  
+  
+
+  
+  
   image = images[i]
   print(image)
   
@@ -50,11 +72,16 @@ for(i  in 27:length(images)){
   sub_shape = crop(shape, im)
   
   if(!is.null(sub_shape)){
-    r = raster::rasterize(x = sub_shape, y = im, field = sub_shape$class , background = 0 )
+    r = raster::rasterize(x = sub_shape, y = im, field = sub_shape$label , background = 0 )
     
-    name = strsplit(image, '/')[[1]][9]
+    name = strsplit(image, '/')[[1]][4]
     
     writeRaster(r,  paste0('db/geomorfologie_labels/oost_2016/', name) , overwrite = TRUE )
   }
   
-}
+})
+
+
+
+
+
