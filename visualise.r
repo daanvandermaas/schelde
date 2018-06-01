@@ -7,7 +7,7 @@ library(ggplot2)
 path = 'db/labels_parts'
 
 labels = list.files(path)
-path_out = 'db/labels_parts_visualise'
+path_out = 'db/labels_parts_visualisatie'
 
 visualise_labels(path, labels, path_out )
 
@@ -49,7 +49,7 @@ cols <- c(
   '20' = "darkred", #P2d2
   '21' = "chocolate", # P2d3 
   '38' = 'chocolate1',#P3
-  '22' = 'yellow1', #S1a
+  '22' = 'gold', #S1a
 '23' = 'chartreuse', #S1c
 '24' = 'chartreuse1',  #S2a
  '25' = 'chartreuse2', # S2b
@@ -65,11 +65,12 @@ cols <- c(
 
 
 for(i in 1:length(labels)){
-
-  lab = read_feather(file.path(path, labels[i]))
+print(i/ length(labels))
+  
+lab = read_feather(file.path(path, labels[i]))
   lab = as.matrix(lab)
+  lab = lab[,dim(lab)[2]:1]
   name = paste0( file.path(path_out, strsplit(labels[i],'[.]')[[1]][1]), '.png')
-
 
 png(name)
 print({

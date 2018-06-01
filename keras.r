@@ -17,7 +17,7 @@ parts = 4
   h = as.integer(608) #heigth image dim image = 2448
 w = as.integer(608) #width image
 channels = 3L
-class = 7L
+class = 39L
 pick = 100L
 #####
 
@@ -48,16 +48,18 @@ for (epoch in 1:epochs){
   input_im = readImage(train$files[i])
   input_im = array(input_im, dim = c(1, dim(input_im)))
   
-  input_lab = as.matrix(read_feather(train$labels[i]))
+  input_lab = as.matrix(read_feather(train$labels[i])) +1
 
   input_lab  = apply(input_lab, c(1,2), function(x){
-    
-    rep(0, class)
-    
+    z = rep(0, class)
+    z[x] = 1
+    z
   })
   
 input_lab = aperm(input_lab, c(2,3,1))
-  
+input_lab = array(input_lab, dim = c(1, dim(input_lab)))  
+
+
   model$fit( x= batch_files, y= batch_labels, batch_size = batch_size, epochs = 1L )
   
   }
