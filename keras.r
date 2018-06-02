@@ -12,11 +12,11 @@ train = readRDS( file.path(getwd(), 'db', 'train.rds'))
 
 ######Parameters
 epochs = 280
-batch_size = 4L
+batch_size = 1L
 parts = 4
-  h = as.integer(608) #heigth image dim image = 2448
-w = as.integer(608) #width image
-channels = 3L
+  h = as.integer(512) #heigth image dim image = 2448
+w = as.integer(512) #width image
+channels = 4L
 class = 39L
 pick = 100L
 #####
@@ -59,8 +59,10 @@ for (epoch in 1:epochs){
 input_lab = aperm(input_lab, c(2,3,1))
 input_lab = array(input_lab, dim = c(1, dim(input_lab)))  
 
+extra = array(input_lab, dim = c(1,w,h, 1))
+input_im = abind(input_im, extra, along = 4)
 
-  model$fit( x= batch_files, y= batch_labels, batch_size = batch_size, epochs = 1L )
+  model$fit( x= input_im, y= input_lab, batch_size = batch_size, epochs = 1L )
   
   }
   print(paste('epoch:', epoch))

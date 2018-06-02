@@ -2,8 +2,8 @@ library(feather)
 library(EBImage)
 library(tiff)
 
-w = 512
-h = 512
+w = 16000
+h = 16000
 
 
 ##########
@@ -35,10 +35,10 @@ for( i in  1:length(labels)){
       im_part = Image(im[ ((x-1)*w + 1)  :(x*w) , ((y-1)*h + 1)  :(y*h), ], colormode = 'color')
       if(sum(r_part)>0){
         name = paste0(strsplit(label, '[./]')[[1]][4], '_', x, '_', y, '.fe')
-        write_feather(r_part, file.path('db', 'labels_parts', paste0('oost_' , name) ))
+        write_feather(r_part, file.path('db', 'lab_very_large', paste0('oost_' , name) ))
         
         name = paste0(strsplit(label, '[./]')[[1]][4], '_', x, '_', y, '.jpg')
-        writeImage(im_part, file.path('db', 'images_parts', paste0('oost_' , name)))
+        writeImage(im_part, file.path('db', 'im_very_large', paste0('oost_' , name)))
       }
     }}
   
@@ -83,10 +83,10 @@ print(i/length(labels))
       im_part = Image(im[ ((x-1)*w + 1)  :(x*w) , ((y-1)*h + 1)  :(y*h), ], colormode = 'color')
       if(sum(r_part)>0){
         name = paste0(strsplit(label, '[./]')[[1]][4], '_', x, '_', y, '.fe')
-        write_feather(r_part, file.path('db', 'labels_parts',  paste0('west_' , name) ))
+        write_feather(r_part, file.path('db', 'lab_very_large',  paste0('west_' , name) ))
         
         name = paste0(strsplit(label, '[./]')[[1]][4], '_', x, '_', y, '.jpg')
-        writeImage(im_part, file.path('db', 'images_parts', paste0('west_' , name) ))
+        writeImage(im_part, file.path('db', 'im_very_large', paste0('west_' , name) ))
       }
   }}
   
