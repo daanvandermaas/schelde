@@ -24,7 +24,7 @@ pick = 100L
 # encoding layers
 
 
-source('Unet.r')
+source('Unet_plus.r')
 
 opt<-optimizer_adam( lr= 0.0001 , decay = 0,  clipnorm = 1 )
 
@@ -66,7 +66,7 @@ input_im = abind(input_im, extra, along = 4)
   
   }
   print(paste('epoch:', epoch))
-    model$save( paste0('db/model/model_', epoch) )
+    model$save( paste0('db/model/model_mask_', epoch) )
     
   
   
