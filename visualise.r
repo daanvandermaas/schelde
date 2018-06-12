@@ -4,12 +4,25 @@ library(feather)
 library(ggplot2)
 
 
-path = 'db/labels_parts'
+path = 'db/images_parts'
+path_out = 'db/evaluate'
+
+
+path = 'db/predictions'
 
 labels = list.files(path)
-path_out = 'db/labels_parts_visualisatie'
+path_out = 'db/evaluate'
+
+ext = '.png' #.png for labels and .jpg for images
+
+move_images(labels, path, path_out, ext)
+
 
 visualise_labels(path, labels, path_out )
+
+
+
+
 
 visualise_labels = function(path , labels, path_out){
 
@@ -80,4 +93,15 @@ image(as.matrix(lab), col= cols[ names(cols) %in% lab ], xaxt = 'n', yaxt = 'n')
 dev.off()
 }
 
+}
+
+move_images = function(labels, path, path_out, ext){
+  
+  for(label in labels){
+  
+    name = gsub(label, pattern = '_pred.fe', replacement = ext)
+    file.copy (file.path(path, name), file.path(path_out, name))
+    
+  }
+  
 }

@@ -1,9 +1,15 @@
-path_labels = 'db/labels_parts'
+path_labels = 'db/trainingdata'
 path_files = 'db/images_parts'
 ext_labels = '.fe'
 ext_im = '.jpg'
 
 labels = list.files(path_labels)
+
+
+i=1
+dim(readRDS(file.path(path_labels, labels[i])))
+
+
 files = gsub(labels, pattern = ext_labels, replacement =  ext_im)
 labels = file.path(path_labels, labels)
 files = file.path(path_files, files)

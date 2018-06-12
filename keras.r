@@ -2,8 +2,6 @@ library(keras)
 library(EBImage)
 library(feather)
 
-source('read_batch.r')
-
 
 #data loading
 train = readRDS( file.path(getwd(), 'db', 'train.rds'))

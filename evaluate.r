@@ -8,18 +8,18 @@ class = 39L
 h = as.integer(512) #heigth image dim image = 2448
 w = as.integer(512) #width image
 
-model = keras::load_model_hdf5('db/models/model_mask_12')
+model = keras::load_model_hdf5('db/models/model_23')
 
 data = readRDS('db/train.rds')
 
 
 for(i in 1:nrow(data)){
   
-  
-  input_im = readImage(train$files[i])
+  print(i)
+  input_im = readImage(data$files[i])
   input_im = array(input_im, dim = c(1, dim(input_im)))
   
-  input_lab = as.matrix(read_feather(train$labels[i])) +1
+  input_lab = as.matrix(read_feather(data$labels[i])) +1
   
   input_lab  = apply(input_lab, c(1,2), function(x){
     z = rep(0, class)
@@ -37,12 +37,12 @@ for(i in 1:nrow(data)){
 pred =   model$predict(x = input_im)
 
 pred  = apply(pred, c(1,2,3), function(x){
-  which(max(x) == x)[1]
+  which(max(x) == x)[1] - 1
 })  
 
 pred =  pred[1,,]
 pred = as.data.frame(pred)
-name =  file.path('db', 'predictions',  strsplit(train$labels[i], '[/]')[[1]][3])
+name =  file.path('db', 'predictions',  paste0(strsplit(data$labels[i], '[/.]')[[1]][3], '_pred.fe') )
 write_feather( pred, name)
 
 }
